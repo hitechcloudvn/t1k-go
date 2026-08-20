@@ -1,4 +1,4 @@
-module github.com/chaitin/t1k-go
+module github.com/hitechcloud-vietnam/t1k-go
 
 go 1.17
 

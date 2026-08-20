@@ -9,7 +9,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/chaitin/t1k-go"
+	"github.com/hitechcloud-vietnam/t1k-go"
 )
 
 func initDetect() *t1k.Server {
