@@ -9,7 +9,7 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/hitechcloud-vietnam/t1k-go"
+	"github.com/hitechcloudvn/t1k-go"
 )
 
 func initDetect() *t1k.Server {
@@ -23,11 +23,17 @@ func initDetect() *t1k.Server {
 	// `HEALTH_CHECK_HTTP_PROTOCOL` means use 'http' protocol for health check and `HEALTH_CHECK_T1K_PROTOCOL`
 	// means use t1k protocol for health check.
 	// If you want use https, pass `EnableTLS` with true in `HealthCheckConfig`
+	//
+	// Bật kiểm tra sức khỏe (health check).
+	// `HealthCheckProtocol` nhận giá trị `HEALTH_CHECK_HTTP_PROTOCOL` hoặc `HEALTH_CHECK_T1K_PROTOCOL`;
+	// `HEALTH_CHECK_HTTP_PROTOCOL` nghĩa là dùng giao thức 'http' để health check, còn `HEALTH_CHECK_T1K_PROTOCOL`
+	// nghĩa là dùng giao thức t1k để health check.
+	// Nếu muốn dùng https, đặt `EnableTLS` = true trong `HealthCheckConfig`
 	hcConfig := &t1k.HealthCheckConfig{
 		Interval:            2,
 		HealthThreshold:     3,
 		UnhealthThreshold:   5,
-		Addresses:           []string{"1.1.1.1:8001"}, // detector service health check port
+		Addresses:           []string{"1.1.1.1:8001"}, // detector service health check port / cổng health check của dịch vụ detector
 		HealthCheckProtocol: t1k.HEALTH_CHECK_HTTP_PROTOCOL,
 	}
 	server.UpdateHealthCheckConfig(hcConfig)

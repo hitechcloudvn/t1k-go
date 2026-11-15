@@ -1,0 +1,38 @@
+# Release workflow — build and publish a GitHub Release when a v* tag is pushed.
+# Releases are built by CI only (no local release builds).
+# Ghi chú phát hành song ngữ Anh–Việt / bilingual (EN–VI) release notes.
+name: release
+
+on:
+  push:
+    tags: [ 'v*' ]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
+
+      - name: Verify build
+        run: go build ./...
+
+      - name: Run tests
+        run: go test ./...
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            --title "$GITHUB_REF_NAME" \
+            --generate-notes \
+            --notes $'## English\nGo implementation of the T1K protocol for HiTechCloud vCWAF.\n\n## Tiếng Việt\nTriển khai giao thức T1K bằng Go cho HiTechCloud vCWAF.\n'

@@ -1,6 +1,8 @@
 //go:build !healthcheck
 // +build !healthcheck
 
+// Minimal example: detect HTTP requests with a vCWAF detector.
+// Ví dụ tối giản: phát hiện HTTP request bằng detector của vCWAF.
 package main
 
 import (
@@ -9,7 +11,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/hitechcloud-vietnam/t1k-go"
+	"github.com/hitechcloudvn/t1k-go"
 )
 
 func initDetect() *t1k.Server {

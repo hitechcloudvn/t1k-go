@@ -3,7 +3,7 @@ package t1k
 import (
 	"io"
 
-	"github.com/hitechcloud-vietnam/t1k-go/t1k"
+	"github.com/hitechcloudvn/t1k-go/t1k"
 )
 
 func DoHeartbeat(s io.ReadWriter) error {

@@ -6,7 +6,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/hitechcloud-vietnam/t1k-go/misc"
+	"github.com/hitechcloudvn/t1k-go/misc"
 )
 
 type Response interface {

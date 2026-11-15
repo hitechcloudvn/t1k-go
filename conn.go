@@ -4,10 +4,10 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/hitechcloud-vietnam/t1k-go/detection"
-	"github.com/hitechcloud-vietnam/t1k-go/t1k"
+	"github.com/hitechcloudvn/t1k-go/detection"
+	"github.com/hitechcloudvn/t1k-go/t1k"
 
-	"github.com/hitechcloud-vietnam/t1k-go/misc"
+	"github.com/hitechcloudvn/t1k-go/misc"
 )
 
 type conn struct {
