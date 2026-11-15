@@ -1,11 +1,19 @@
 # Release workflow — build and publish a GitHub Release when a v* tag is pushed.
-# Releases are built by CI only (no local release builds).
+# Can also be run manually (workflow_dispatch) for an existing tag if the tag-push
+# event was missed. Releases are built by CI only (no local release builds).
+# Chạy thủ công (workflow_dispatch) cho tag hiện có nếu sự kiện push tag bị bỏ lỡ.
 # Ghi chú phát hành song ngữ Anh–Việt / bilingual (EN–VI) release notes.
 name: release
 
 on:
   push:
     tags: [ 'v*' ]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to release (e.g. v1.5.0) / Tag sẽ phát hành (vd: v1.5.0)'
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -16,6 +24,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref }}
 
       - name: Set up Go
         uses: actions/setup-go@v5
@@ -31,8 +41,9 @@ jobs:
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
         run: |
-          gh release create "$GITHUB_REF_NAME" \
-            --title "$GITHUB_REF_NAME" \
+          gh release create "$RELEASE_TAG" \
+            --title "$RELEASE_TAG" \
             --generate-notes \
             --notes $'## English\nGo implementation of the T1K protocol for HiTechCloud vCWAF.\n\n## Tiếng Việt\nTriển khai giao thức T1K bằng Go cho HiTechCloud vCWAF.\n'
